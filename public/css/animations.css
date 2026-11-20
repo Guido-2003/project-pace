@@ -1,0 +1,93 @@
+/* PROJECT PACE — Animaciones adicionales (opcionales).
+   Cargar después de responsive.css. Sin cambios de layout. */
+:root {
+    --pp-motion-fast: 220ms;
+    --pp-motion-hover: 350ms;
+    --pp-motion-ease: cubic-bezier(.2,.7,.3,1);
+}
+
+/* Subrayado: no afecta al ancho ni al alto del menú. */
+@media (min-width: 851px) {
+    .pp-header .pp-nav-links a:not(.cart-link) {
+        position: relative;
+    }
+    .pp-header .pp-nav-links a:not(.cart-link)::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 7px;
+        height: 1px;
+        background: #a6b09a;
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 250ms var(--pp-motion-ease);
+        pointer-events: none;
+    }
+    .pp-header .pp-nav-links a:not(.cart-link):focus-visible::after,
+    .pp-header .pp-nav-links a:not(.cart-link)[aria-current='page']::after {
+        transform: scaleX(1);
+    }
+}
+@media (min-width: 851px) and (hover: hover) and (pointer: fine) {
+    .pp-header .pp-nav-links a:not(.cart-link):hover::after {
+        transform: scaleX(1);
+    }
+}
+
+/* Zoom discreto, conservando el ajuste y centrado de las prendas. */
+@media (hover: hover) and (pointer: fine) {
+    .product-grid .product-card .product-image { overflow: hidden; }
+    .product-grid .product-card .product-image img {
+        transition: transform var(--pp-motion-hover) var(--pp-motion-ease);
+    }
+    .product-grid .product-card:hover .product-image img {
+        transform: scale(1.04);
+    }
+}
+/* Evitar el hover persistente en pantallas táctiles. */
+@media (hover: none), (pointer: coarse) {
+    .product-grid .product-card:hover .product-image img {
+        transform: none;
+    }
+}
+
+/* Feedback sin mover el layout ni afectar botones deshabilitados. */
+.hero .hero-button,
+.archive-editorial .archive-hero-link,
+.archive-editorial .archive-shop-link,
+.detail-information .add-to-cart:not(:disabled) {
+    transition: background-color var(--pp-motion-fast) ease,
+                color var(--pp-motion-fast) ease,
+                border-color var(--pp-motion-fast) ease,
+                transform var(--pp-motion-fast) var(--pp-motion-ease);
+}
+.hero .hero-button:active,
+.archive-editorial .archive-hero-link:active,
+.archive-editorial .archive-shop-link:active,
+.detail-information .add-to-cart:not(:disabled):active {
+    transform: scale(.98);
+}
+
+/* Accesibilidad: también neutraliza los efectos anteriores del sitio. */
+@media (prefers-reduced-motion: reduce) {
+    .pp-header .pp-nav-links a:not(.cart-link)::after,
+    .product-grid .product-card .product-image img,
+    .hero .hero-button,
+    .archive-editorial .archive-hero-link,
+    .archive-editorial .archive-shop-link,
+    .detail-information .add-to-cart,
+    .pp-header .cart-icon {
+        transition: none !important;
+        animation: none !important;
+    }
+    .product-grid .product-card:hover .product-image img,
+    .hero .hero-button:hover,
+    .hero .hero-button:active,
+    .archive-editorial .archive-hero-link:active,
+    .archive-editorial .archive-shop-link:active,
+    .detail-information .add-to-cart:not(:disabled):active,
+    .pp-header .cart-link:hover .cart-icon {
+        transform: none !important;
+    }
+}

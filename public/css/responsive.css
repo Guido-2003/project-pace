@@ -1,0 +1,75 @@
+/* PROJECT PACE — Ajustes compartidos para pantallas pequeñas.
+   Cargar al final del head. Los @media específicos permanecen
+   en header.css, footer.css, shop.css, archive.css, etc. */
+
+@media (max-width: 768px) {
+    /* Catálogo de HOME y SHOP: mantener dos columnas sin desbordar. */
+    .product-grid {
+        gap: 14px;
+    }
+    .product-grid .product-card { min-width: 0; }
+    .product-grid .product-image { padding: 10px; }
+    .product-grid .product-info h3 {
+        font-size: clamp(16px, 4.4vw, 22px);
+        overflow-wrap: anywhere;
+    }
+    .product-grid .product-badge {
+        font-size: 9px;
+        max-width: 90%;
+        white-space: normal;
+    }
+
+    /* HOME: recorte vertical y contraste detrás del slogan. */
+    .hero {
+        box-sizing: border-box;
+        align-items: flex-end;
+        min-height: 90vh;
+        min-height: 90svh;
+        padding: 112px 6% 42px;
+        background-image:
+            linear-gradient(to top, rgba(0,0,0,.90), rgba(0,0,0,.42) 45%, rgba(0,0,0,.14) 80%),
+            url('../assets/images/hero-project-pace.webp');
+        background-position: 72% center;
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+    .hero .hero-content { width: 100%; min-width: 0; }
+    .hero h1 {
+        font-size: clamp(38px, 11vw, 72px);
+        letter-spacing: -1px;
+        line-height: 1.06;
+        overflow-wrap: break-word;
+    }
+    .hero .hero-button { max-width: 100%; text-align: center; }
+
+    /* Controles de formulario cómodos en pantallas táctiles. */
+    .shop-filter-field input, .shop-filter-field select,
+    .checkout-form input, .checkout-form select, .checkout-form textarea {
+        box-sizing: border-box;
+        min-width: 0;
+        font-size: 16px;
+    }
+    .shop-filters > *, .checkout-layout > *, .product-detail-page .detail-layout > * {
+        min-width: 0;
+    }
+    .shop-intro h1, .checkout-heading h1 { overflow-wrap: break-word; }
+
+    /* Carrito: prevenir desbordamientos en los detalles. */
+    .cart-layout > *, .cart-item-info { min-width: 0; }
+    .cart-item-info h3 { overflow-wrap: anywhere; }
+}
+
+@media (max-width: 480px) {
+    .shop-intro h1, .checkout-heading h1 { font-size: clamp(38px, 11vw, 52px); }
+    .shop-results-bar { flex-wrap: wrap; }
+    .product-grid .product-image { padding: 6px; }
+    .product-grid .product-badge { letter-spacing: .4px; padding: 5px 7px; }
+    .archive-editorial .archive-hero h1 { font-size: clamp(36px, 11vw, 52px); }
+    .checkout-review dl { grid-template-columns: minmax(0,1fr); gap: 6px; }
+    .checkout-review dd { margin-bottom: 10px; }
+    .pp-footer-main { gap: 30px 16px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+}
